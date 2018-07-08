@@ -3,10 +3,14 @@ import PropTypes from 'prop-types'
 
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
 
 const styles = {
   container: {
     height: 500
+  },
+  paper: {
+    padding: '50px 100px'
   }
 }
 
@@ -25,12 +29,14 @@ class Auth extends Component {
       <Grid
         container
         spacing={16}
-        className={classes.contianer}
+        className={classes.container}
         alignItems='center'
         direction='row'
         justify='center'
       >
-        {children}
+        <Paper className={classes.paper}>
+          {children}
+        </Paper>
       </Grid>
     )
   }
