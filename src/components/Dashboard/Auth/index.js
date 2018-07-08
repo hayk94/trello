@@ -4,11 +4,6 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 
-import SignUp from './SignUp'
-import SignIn from './SignIn'
-
-import { signInPath, signUpPath } from '../../../Routes'
-
 const styles = {
   container: {
     height: 500
@@ -18,19 +13,13 @@ const styles = {
 class Auth extends Component {
   static propTypes = {
     classes: PropTypes.object,
-    route: PropTypes.object.isRequired
-  }
-
-  renderSignUpOrSignIn = () => {
-    const { route: { path } } = this.props
-    if (path === signUpPath) return <SignUp />
-    if (path === signInPath) return <SignIn />
-    return null
+    children: PropTypes.node.isRequired
   }
 
   render () {
     const {
-      classes
+      classes,
+      children
     } = this.props
     return (
       <Grid
@@ -41,7 +30,7 @@ class Auth extends Component {
         direction='row'
         justify='center'
       >
-        {this.renderSignUpOrSignIn()}
+        {children}
       </Grid>
     )
   }
