@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import Grid from '@material-ui/core/Grid'
 
@@ -17,22 +18,29 @@ import Menu from '@material-ui/core/Menu'
 
 const styles = {
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   flex: {
-    flex: 1,
+    flex: 1
   },
   menuButton: {
     marginLeft: -12,
-    marginRight: 20,
+    marginRight: 20
   },
+  appBar: {
+    marginBottom: 20
+  }
 }
 
 class Header extends Component {
+  static propTypes = {
+    classes: PropTypes.object
+  }
+
   state = {
-   auth: true,
-   anchorEl: null,
- }
+    auth: true,
+    anchorEl: null
+  }
 
   handleMenu = event => {
     this.setState({ anchorEl: event.currentTarget })
@@ -48,45 +56,45 @@ class Header extends Component {
     const open = Boolean(anchorEl)
 
     return (
-        <AppBar position='static'>
-          <Toolbar>
-            <IconButton className={classes.menuButton} color='inherit' aria-label='Menu'>
-              <MenuIcon />
-            </IconButton>
-            <Typography variant='title' color='inherit' className={classes.flex}>
-              Title
-            </Typography>
-            {auth && (
-              <div>
-                <IconButton
-                  aria-owns={open ? 'menu-appbar' : null}
-                  aria-haspopup='true'
-                  onClick={this.handleMenu}
-                  color='inherit'
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  id='menu-appbar'
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right'
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right'
-                  }}
-                  open={open}
-                  onClose={this.handleClose}
-                >
-                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                </Menu>
-              </div>
-            )}
-          </Toolbar>
-        </AppBar>
+      <AppBar className={classes.appBar} position='static'>
+        <Toolbar>
+          <IconButton className={classes.menuButton} color='inherit' aria-label='Menu'>
+            <MenuIcon />
+          </IconButton>
+          <Typography variant='title' color='inherit' className={classes.flex}>
+            Title
+          </Typography>
+          {auth && (
+            <div>
+              <IconButton
+                aria-owns={open ? 'menu-appbar' : null}
+                aria-haspopup='true'
+                onClick={this.handleMenu}
+                color='inherit'
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id='menu-appbar'
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right'
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right'
+                }}
+                open={open}
+                onClose={this.handleClose}
+              >
+                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                <MenuItem onClick={this.handleClose}>My account</MenuItem>
+              </Menu>
+            </div>
+          )}
+        </Toolbar>
+      </AppBar>
     )
   }
 }

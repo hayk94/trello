@@ -33,7 +33,7 @@ class ProjectBox extends Component {
     _id: 'ggg',
     name: 'Project Name',
     backgroundImage: `url('https://www.yourcat.co.uk/images/legacy/catimages/Breed_AmericanCurl/healthykittenmain.jpg')`,
-    onClick: () => browserHistory.push(`/${Math.random()}`)
+    onClick: () => browserHistory.push(`/project/${Math.random()}`)
   }
 
   render () {

@@ -14,8 +14,7 @@ const styles = {
     height: '500px'
   },
   container: {
-    position: 'relative',
-    paddingTop: 20
+    position: 'relative'
   },
   button: {
     position: 'fixed',
@@ -41,7 +40,7 @@ class Projects extends Component {
       <Grid
         className={classes.container}
         container
-        >
+      >
         <Grid
           container
           spacing={16}
@@ -49,7 +48,7 @@ class Projects extends Component {
           alignItems='center'
           direction='row'
           justify='center'
-          >
+        >
           {this.renderProjects()}
         </Grid>
         <Tooltip title='Create new project'>
