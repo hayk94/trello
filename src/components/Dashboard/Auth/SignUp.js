@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button'
 
 import { Link } from 'react-router'
 
+import { Field, reduxForm } from 'redux-form'
+
 const styles = {
   container: {},
   textField: {},
@@ -40,24 +42,22 @@ class SignIn extends Component {
           <Typography variant='headline' gutterBottom>
             SIGN UP
           </Typography>
-          <TextField
-            id='email'
+          <Field
+            component={TextField}
+            name='email'
             label='Email'
             className={classes.textField}
-            value={'gdfg'}
-            onChange={() => console.log('ilog')}
             margin='normal'
           />
-          <TextField
-            id='password'
+          <Field
+            component={TextField}
+            name='password'
             label='Password'
             type='password'
             className={classes.textField}
-            value={'gdfg'}
-            onChange={() => console.log('ilog')}
             margin='normal'
           />
-          <Button variant='contained' color='primary' className={classes.button}>
+          <Button type='submit' variant='contained' color='primary' className={classes.button}>
             Sign Up
           </Button>
           <Link to='/sign/in'>Sign In</Link>
@@ -67,4 +67,4 @@ class SignIn extends Component {
   }
 }
 
-export default withStyles(styles)(SignIn)
+export default reduxForm({ form: 'signup' })(withStyles(styles)(SignIn))
