@@ -5,7 +5,6 @@ import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
 
 import { Link } from 'react-router'
 
@@ -22,31 +21,9 @@ class Form extends Component {
     buttonTitle: PropTypes.string,
     linkTo: PropTypes.string,
     linkTitle: PropTypes.string,
-    children: PropTypes.func,
+    children: PropTypes.array,
     handleSubmit: PropTypes.func,
     submitting: PropTypes.bool
-  }
-
-  renderTextField = props => {
-    const {
-      meta: {
-        touched,
-        error
-      }
-    } = props
-
-    const isErrored = error && touched
-
-    const displayErrorOrLabel = () => {
-      if (isErrored) return error
-      return props.label
-    }
-
-    return <TextField
-      {...props}
-      error={isErrored}
-      label={displayErrorOrLabel()}
-    />
   }
 
   render () {
@@ -73,7 +50,7 @@ class Form extends Component {
           <Typography variant='headline' gutterBottom>
             {formTitle}
           </Typography>
-          {children(this.renderTextField)}
+          {children}
           <Button
             disabled={submitting}
             type='submit'

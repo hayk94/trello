@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 
 import { Field, reduxForm } from 'redux-form'
 
-import validate from './validate'
-
 import Form from './components/Form'
+
+import TextFieldForReduxForm from './components/TextFieldForReduxForm'
+
+import validate from './validate'
 
 import { signUpCallbacks } from './onSubmit'
 
@@ -18,27 +20,19 @@ class SignUp extends Component {
         linkTo='/sign/in'
         linkTitle='Sign In'
       >
-        {
-          (renderTextField) => {
-            return [
-              <Field
-                key='emailsignup'
-                component={renderTextField}
-                name='email'
-                label='Email'
-                margin='normal'
-              />,
-              <Field
-                key='passwordsignup'
-                component={renderTextField}
-                name='password'
-                label='Password'
-                type='password'
-                margin='normal'
-              />
-            ]
-          }
-        }
+        <Field
+          component={TextFieldForReduxForm}
+          name='email'
+          label='Email'
+          margin='normal'
+        />,
+        <Field
+          component={TextFieldForReduxForm}
+          name='password'
+          label='Password'
+          type='password'
+          margin='normal'
+        />
       </Form>
     )
   }
