@@ -23,7 +23,8 @@ class Form extends Component {
     linkTitle: PropTypes.string,
     children: PropTypes.array,
     handleSubmit: PropTypes.func,
-    submitting: PropTypes.bool
+    submitting: PropTypes.bool,
+    error: PropTypes.string
   }
 
   render () {
@@ -35,7 +36,8 @@ class Form extends Component {
       linkTitle,
       children,
       submitting,
-      handleSubmit
+      handleSubmit,
+      error
     } = this.props
 
     return (
@@ -49,6 +51,9 @@ class Form extends Component {
         >
           <Typography variant='headline' gutterBottom>
             {formTitle}
+          </Typography>
+          <Typography style={{ color: 'red' }} variant='caption' gutterBottom align='center'>
+            {error}
           </Typography>
           {children}
           <Button
