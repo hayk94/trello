@@ -1,67 +1,46 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 
-import { withStyles } from '@material-ui/core/styles'
-import Grid from '@material-ui/core/Grid'
-import TextField from '@material-ui/core/TextField'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
+import { Field, reduxForm } from 'redux-form'
 
-const styles = {
-  container: {},
-  textField: {},
-  button: {
-    marginTop: 15
-  }
-}
+import Form from './components/Form'
+
+import TextFieldForReduxForm from './components/TextFieldForReduxForm'
+
+import validate from './validate'
+
+import { onSignIn as onSubmit, onSubmitSuccess } from './onSubmit'
 
 class SignIn extends Component {
-  static propTypes = {
-    classes: PropTypes.object
-  }
-
   render () {
-    const {
-      classes
-    } = this.props
-
     return (
-      <form>
-        <Grid
-          container
-          spacing={16}
-          className={classes.container}
-          alignItems='center'
-          direction='column'
-          justify='center'
-        >
-          <Typography variant='headline' gutterBottom>
-            SIGN IN
-          </Typography>
-          <TextField
-            id='email'
-            label='Email'
-            className={classes.textField}
-            value={'gdfg'}
-            onChange={() => console.log('ilog')}
-            margin='normal'
-          />
-          <TextField
-            id='password'
-            label='Password'
-            type='password'
-            className={classes.textField}
-            value={'gdfg'}
-            onChange={() => console.log('ilog')}
-            margin='normal'
-          />
-          <Button variant='contained' color='primary' className={classes.button}>
-            Sign In
-          </Button>
-        </Grid>
-      </form>
+      <Form
+        {...this.props}
+        formTitle='SIGN IN'
+        buttonTitle='SIGN IN'
+        linkTo='/sign/up'
+        linkTitle='Sign Up'
+      >
+        <Field
+          component={TextFieldForReduxForm}
+          name='email'
+          label='Email'
+          margin='normal'
+        />,
+        <Field
+          component={TextFieldForReduxForm}
+          name='password'
+          label='Password'
+          type='password'
+          margin='normal'
+        />
+      </Form>
     )
   }
 }
 
-export default withStyles(styles)(SignIn)
+export default reduxForm({
+  form: 'signin',
+  validate,
+  onSubmit,
+  onSubmitSuccess
+})(SignIn)

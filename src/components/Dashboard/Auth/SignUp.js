@@ -8,7 +8,7 @@ import TextFieldForReduxForm from './components/TextFieldForReduxForm'
 
 import validate from './validate'
 
-import { signUpCallbacks } from './onSubmit'
+import { onSignUp as onSubmit, onSubmitSuccess } from './onSubmit'
 
 class SignUp extends Component {
   render () {
@@ -37,11 +37,6 @@ class SignUp extends Component {
     )
   }
 }
-
-const {
-  onSubmit,
-  onSubmitSuccess
-} = signUpCallbacks
 
 export default reduxForm({
   form: 'signup',
