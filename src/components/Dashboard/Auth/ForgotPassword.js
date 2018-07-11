@@ -6,17 +6,17 @@ import Form from './components/Form'
 
 import TextFieldForReduxForm from './components/TextFieldForReduxForm'
 
-import validate from './validate'
+import { validateForgotPassword as validate } from './validate'
 
-import { onSignUp as onSubmit, onSubmitSuccess } from './onSubmit'
+import { onForgotPassword as onSubmit, onForgotPasswordSuccess as onSubmitSuccess } from './onSubmit'
 
-class SignUp extends Component {
+class ForgotPassword extends Component {
   render () {
     return (
       <Form
         {...this.props}
-        formTitle='SIGN UP'
-        buttonTitle='SIGN UP'
+        formTitle='FORGOT PASSWORD'
+        buttonTitle='SEND RESET EMAIL'
         linkTo='/auth/signin'
         linkTitle='Sign In'
       >
@@ -25,13 +25,6 @@ class SignUp extends Component {
           name='email'
           label='Email'
           margin='normal'
-        />,
-        <Field
-          component={TextFieldForReduxForm}
-          name='password'
-          label='Password'
-          type='password'
-          margin='normal'
         />
       </Form>
     )
@@ -39,8 +32,8 @@ class SignUp extends Component {
 }
 
 export default reduxForm({
-  form: 'signup',
+  form: 'ForgotPassword',
   validate,
   onSubmit,
   onSubmitSuccess
-})(SignUp)
+})(ForgotPassword)

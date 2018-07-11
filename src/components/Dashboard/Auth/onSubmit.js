@@ -12,7 +12,10 @@ const firebaseErrorCodes = {
   WEAK_PASSWORD: 'auth/weak-password',
   USER_DISABLED: 'auth/user-disabled',
   USER_NOT_FOUND: 'auth/user-not-found',
-  WRONG_PASSWORD: 'auth/wrong-password'
+  WRONG_PASSWORD: 'auth/wrong-password',
+  NO_CONTINUE_URI: 'auth/missing-continue-uri',
+  INVALID_CONTINUE_URI: 'auth/invalid-continue-uri',
+  UNAUTH_CONTINUE_URI: 'auth/unauthorized-continue-uri'
 }
 
 export const onSignUp = (values, dispatch, props) => {
@@ -38,6 +41,7 @@ export const onSignUp = (values, dispatch, props) => {
       throw new SubmissionError(submissionErrors)
     })
 }
+
 export const onSignIn = (values, dispatch, props) => {
   console.log('onSubmit', values)
   const { email, password } = values
@@ -61,9 +65,39 @@ export const onSignIn = (values, dispatch, props) => {
       throw new SubmissionError(submissionErrors)
     })
 }
+export const onForgotPassword = (values, dispatch, props) => {
+  console.log('onSubmit', values)
+  const { email } = values
+  return firebase.auth().sendPasswordResetEmail(email)
+    .catch(error => {
+      const submissionErrors = {}
+
+      if (error.code === firebaseErrorCodes.INVALID_EMAIL) {
+        submissionErrors.email = 'Email is not valid'
+      }
+      if (error.code === firebaseErrorCodes.USER_NOT_FOUND) {
+        submissionErrors.email = 'There is no such user'
+      }
+      if (error.code === firebaseErrorCodes.NO_CONTINUE_URI) {
+        submissionErrors.email = 'A continue URL must be provided in the request.'
+      }
+      if (error.code === firebaseErrorCodes.INVALID_CONTINUE_URI) {
+        submissionErrors.email = 'The continue URL provided in the request is invalid.'
+      }
+      if (error.code === firebaseErrorCodes.UNAUTH_CONTINUE_URI) {
+        submissionErrors.email = 'The domain of the continue URL is not whitelisted. Whitelist the domain in the Firebase console.'
+      }
+
+      throw new SubmissionError(submissionErrors)
+    })
+}
 
 export const onSubmitSuccess = (result, dispatch, props) => {
   console.log('onSubmitSuccess', result)
   dispatch(setAuth(result.user))
   browserHistory.push('/')
+}
+
+export const onForgotPasswordSuccess = (result, dispatch, props) => {
+  browserHistory.push('/auth/forgot-password-success')
 }

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 import { Field, reduxForm } from 'redux-form'
 
+import { Link } from 'react-router'
+
 import Form from './components/Form'
 
 import TextFieldForReduxForm from './components/TextFieldForReduxForm'
@@ -17,8 +19,9 @@ class SignIn extends Component {
         {...this.props}
         formTitle='SIGN IN'
         buttonTitle='SIGN IN'
-        linkTo='/sign/up'
+        linkTo='/auth/signup'
         linkTitle='Sign Up'
+        footer={<Link to='/auth/forgot-password'>Forgot Password</Link>}
       >
         <Field
           component={TextFieldForReduxForm}

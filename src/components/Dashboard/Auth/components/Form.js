@@ -24,7 +24,8 @@ class Form extends Component {
     children: PropTypes.array,
     handleSubmit: PropTypes.func,
     submitting: PropTypes.bool,
-    error: PropTypes.string
+    error: PropTypes.string,
+    footer: PropTypes.node
   }
 
   render () {
@@ -37,7 +38,8 @@ class Form extends Component {
       children,
       submitting,
       handleSubmit,
-      error
+      error,
+      footer
     } = this.props
 
     return (
@@ -66,6 +68,7 @@ class Form extends Component {
             {buttonTitle}
           </Button>
           <Link to={linkTo}>{linkTitle}</Link>
+          {footer}
         </Grid>
       </form>
     )
