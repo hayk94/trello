@@ -38,8 +38,14 @@ class SignUp extends Component {
   }
 }
 
+const {
+  onSubmit,
+  onSubmitSuccess
+} = signUpCallbacks
+
 export default reduxForm({
   form: 'signup',
   validate,
-  onSubmit: signUpCallbacks.onSubmit
+  onSubmit,
+  onSubmitSuccess
 })(SignUp)

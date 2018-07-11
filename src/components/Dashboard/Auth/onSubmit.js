@@ -1,6 +1,10 @@
 import firebase from 'firebase'
 import { SubmissionError } from 'redux-form'
 
+import { browserHistory } from 'react-router'
+
+import { setAuth } from '../../../redux/actions/auth'
+
 const firebaseErrorCodes = {
   EMAIL_IN_USE: 'auth/email-already-in-use',
   INVALID_EMAIL: 'auth/invalid-email',
@@ -31,5 +35,10 @@ export const signUpCallbacks = {
 
         throw new SubmissionError(submissionErrors)
       })
+  },
+  onSubmitSuccess (result, dispatch, props) {
+    console.log('onSubmitSuccess', result)
+    dispatch(setAuth(result.user))
+    browserHistory.push('/')
   }
 }

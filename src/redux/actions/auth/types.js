@@ -1,0 +1,1 @@
+export const ON_AUTH_SUCCESS = 'ON_AUTH_SUCCESS'
