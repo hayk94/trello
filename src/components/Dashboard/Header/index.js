@@ -1,7 +1,10 @@
+import firebase from 'firebase'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import Grid from '@material-ui/core/Grid'
+import { browserHistory } from 'react-router'
+
+import { connect } from 'react-redux'
 
 import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
@@ -10,11 +13,9 @@ import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import AccountCircle from '@material-ui/icons/AccountCircle'
-import Switch from '@material-ui/core/Switch'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import FormGroup from '@material-ui/core/FormGroup'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
+import Divider from '@material-ui/core/Divider'
 
 const styles = {
   root: {
@@ -34,11 +35,11 @@ const styles = {
 
 class Header extends Component {
   static propTypes = {
-    classes: PropTypes.object
+    classes: PropTypes.object,
+    auth: PropTypes.object
   }
 
   state = {
-    auth: true,
     anchorEl: null
   }
 
@@ -50,9 +51,16 @@ class Header extends Component {
     this.setState({ anchorEl: null })
   }
 
+  signOut = () => {
+    firebase.auth().signOut().then(() => {
+      this.handleClose()
+      browserHistory.push('/auth/signin')
+    }).catch(console.error)
+  }
+
   render () {
-    const { classes } = this.props
-    const { auth, anchorEl } = this.state
+    const { classes, auth } = this.props
+    const { anchorEl } = this.state
     const open = Boolean(anchorEl)
 
     return (
@@ -62,7 +70,7 @@ class Header extends Component {
             <MenuIcon />
           </IconButton>
           <Typography variant='title' color='inherit' className={classes.flex}>
-            Title
+            TrelloClone
           </Typography>
           {auth && (
             <div>
@@ -88,8 +96,9 @@ class Header extends Component {
                 open={open}
                 onClose={this.handleClose}
               >
-                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                 <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                <Divider />
+                <MenuItem onClick={this.signOut}>Sign out</MenuItem>
               </Menu>
             </div>
           )}
@@ -99,4 +108,4 @@ class Header extends Component {
   }
 }
 
-export default withStyles(styles)(Header)
+export default connect(({ auth }) => ({ auth }))(withStyles(styles)(Header))

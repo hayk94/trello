@@ -15,11 +15,6 @@ export default () => {
   firebase.initializeApp(config)
 
   firebase.auth().onAuthStateChanged(user => {
-    if (user) {
-      // User is signed in.
-      store.dispatch(setAuth(user))
-    } else {
-      // No user is signed in.
-    }
+    store.dispatch(setAuth(user))
   })
 }
