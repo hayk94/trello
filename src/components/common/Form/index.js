@@ -21,7 +21,7 @@ class Form extends Component {
     buttonTitle: PropTypes.string,
     linkTo: PropTypes.string,
     linkTitle: PropTypes.string,
-    children: PropTypes.array,
+    children: PropTypes.node,
     handleSubmit: PropTypes.func,
     submitting: PropTypes.bool,
     error: PropTypes.string,

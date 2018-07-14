@@ -8,6 +8,7 @@ import AddIcon from '@material-ui/icons/Add'
 import Tooltip from '@material-ui/core/Tooltip'
 
 import ProjectBox from './ProjectBox'
+import AddProjectModal from './AddProjectModal'
 
 const styles = {
   projectsContainer: {
@@ -28,6 +29,13 @@ class Projects extends Component {
     classes: PropTypes.object
   }
 
+  state = {
+    modalIsOpened: false
+  }
+
+  onModalOpen = () => this.setState({ modalIsOpened: true })
+  onModalClose = () => this.setState({ modalIsOpened: false })
+
   renderProjects = () => {
     return Array.from(Array(125)).map(() => <ProjectBox />)
   }
@@ -36,6 +44,10 @@ class Projects extends Component {
     const {
       classes
     } = this.props
+
+    const {
+      modalIsOpened: open
+    } = this.state
     return (
       <Grid
         className={classes.container}
@@ -52,10 +64,19 @@ class Projects extends Component {
           {this.renderProjects()}
         </Grid>
         <Tooltip title='Create new project'>
-          <Button variant='fab' color='primary' aria-label='add' className={classes.button}>
+          <Button
+            onClick={this.onModalOpen}
+            variant='fab'
+            color='primary'
+            aria-label='add'
+            className={classes.button}>
             <AddIcon />
           </Button>
         </Tooltip>
+        <AddProjectModal
+          open={open}
+          onClose={this.onModalClose}
+        />
       </Grid>
     )
   }

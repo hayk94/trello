@@ -4,9 +4,9 @@ import { Field, reduxForm } from 'redux-form'
 
 import { Link } from 'react-router'
 
-import Form from './components/Form'
+import Form from '../../common/Form'
 
-import TextFieldForReduxForm from './components/TextFieldForReduxForm'
+import TextFieldForReduxForm from'../../common/Form/TextFieldForReduxForm'
 
 import validate from './validate'
 
