@@ -1,9 +1,9 @@
 import firebase from 'firebase'
+import { db } from '../../../initFirebase'
+
 import { SubmissionError } from 'redux-form'
 
 import { browserHistory } from 'react-router'
-
-const db = firebase.firestore()
 
 const onSubmit = (values, dispatch, props) => {
   console.log('onSubmit', values)
@@ -24,6 +24,7 @@ const onSubmit = (values, dispatch, props) => {
   })
     .then(docRef => {
       console.log('Document written with ID: ', docRef.id)
+      return docRef.id
       // props.onClose()
       // browserHistory.push(`/project/${docRef.id}`)
     })
@@ -36,8 +37,8 @@ const onSubmit = (values, dispatch, props) => {
 
 export default onSubmit
 
-export const onSubmitSuccess = (result, dispatch, props) => {
-  console.log('onSubmitSuccess', result)
-  // props.onClose()
-  // browserHistory.push(`/project/${docRef.id}`)
+export const onSubmitSuccess = (id, dispatch, props) => {
+  console.log('onSubmitSuccess', id)
+  props.onClose()
+  browserHistory.push(`/project/${id}`)
 }
