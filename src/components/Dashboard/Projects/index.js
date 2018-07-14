@@ -1,11 +1,19 @@
+import _ from 'lodash'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+
+import { connect } from 'react-redux'
+
+import {
+  fetchProjects
+} from '../../../redux/actions/projects'
 
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
 import Tooltip from '@material-ui/core/Tooltip'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 import ProjectBox from './ProjectBox'
 import AddProjectModal from './AddProjectModal'
@@ -26,18 +34,27 @@ const styles = {
 
 class Projects extends Component {
   static propTypes = {
-    classes: PropTypes.object
+    classes: PropTypes.object,
+    fetchProjects: PropTypes.func,
+    projects: PropTypes.object
   }
 
   state = {
     modalIsOpened: false
   }
 
+  componentWillMount () {
+    this.props.fetchProjects()
+  }
+
   onModalOpen = () => this.setState({ modalIsOpened: true })
   onModalClose = () => this.setState({ modalIsOpened: false })
 
   renderProjects = () => {
-    return Array.from(Array(125)).map(() => <ProjectBox />)
+    // return Array.from(Array(125)).map(() => <ProjectBox />)
+    const { projects } = this.props
+    if (!projects) return <CircularProgress size={50} />
+    return _.map(projects, (value, key) => <ProjectBox _id={key} key={key} name={value.name} />)
   }
 
   render () {
@@ -82,4 +99,4 @@ class Projects extends Component {
   }
 }
 
-export default withStyles(styles)(Projects)
+export default connect(({ projects }) => ({ projects }), { fetchProjects })(withStyles(styles)(Projects))

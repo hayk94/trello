@@ -17,7 +17,8 @@ const styles = {
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     fontWeight: 'bold',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    width: 100
   }
 }
 
@@ -26,21 +27,24 @@ class ProjectBox extends Component {
     _id: PropTypes.string,
     name: PropTypes.string,
     backgroundImage: PropTypes.string,
-    onClick: PropTypes.func
+    classes: PropTypes.object
   }
 
   static defaultProps = {
     _id: 'ggg',
     name: 'Project Name',
-    backgroundImage: `url('https://www.yourcat.co.uk/images/legacy/catimages/Breed_AmericanCurl/healthykittenmain.jpg')`,
-    onClick: () => browserHistory.push(`/project/${Math.random()}`)
+    backgroundImage: `url('https://www.yourcat.co.uk/images/legacy/catimages/Breed_AmericanCurl/healthykittenmain.jpg')`
+    // onClick: () => browserHistory.push(`/project/${Math.random()}`)
   }
 
+  onClick = () => browserHistory.push(`/project/${this.props._id}`)
+
   render () {
+    const { onClick } = this
+
     const {
       name,
       backgroundImage,
-      onClick,
       classes
     } = this.props
 
