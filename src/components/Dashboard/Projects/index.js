@@ -2,11 +2,8 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { connect } from 'react-redux'
-
-import {
-  fetchProjects
-} from '../../../redux/actions/projects'
+import withFirestoreSub from '../../common/withFirestoreSub'
+import onSnapshot from './onSnapshot'
 
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
@@ -35,16 +32,11 @@ const styles = {
 class Projects extends Component {
   static propTypes = {
     classes: PropTypes.object,
-    fetchProjects: PropTypes.func,
     projects: PropTypes.object
   }
 
   state = {
     modalIsOpened: false
-  }
-
-  componentWillMount () {
-    this.props.fetchProjects()
   }
 
   onModalOpen = () => this.setState({ modalIsOpened: true })
@@ -99,4 +91,4 @@ class Projects extends Component {
   }
 }
 
-export default connect(({ projects }) => ({ projects }), { fetchProjects })(withStyles(styles)(Projects))
+export default withFirestoreSub(withStyles(styles)(Projects), onSnapshot, 'projects')
