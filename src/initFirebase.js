@@ -19,6 +19,7 @@ firebase.auth().onAuthStateChanged(user => {
 })
 
 export const db = firebase.firestore()
+export const storage = firebase.storage()
 
 // timestampsInSnapshots: true
 // [2018-07-14T16:35:12.616Z]  @firebase/firestore: Firestore (5.0.4):
