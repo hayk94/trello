@@ -2,7 +2,7 @@ import firebase from 'firebase'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { browserHistory } from 'react-router'
+import { browserHistory, Link } from 'react-router'
 
 import { connect } from 'react-redux'
 
@@ -30,6 +30,10 @@ const styles = {
   },
   appBar: {
     marginBottom: 20
+  },
+  link: {
+    color: 'inherit',
+    textDecoration: 'none'
   }
 }
 
@@ -70,7 +74,7 @@ class Header extends Component {
             <MenuIcon />
           </IconButton>
           <Typography variant='title' color='inherit' className={classes.flex}>
-            TrelloClone
+            <Link className={classes.link} to='/'>TrelloClone</Link>
           </Typography>
           {auth && (
             <div>
